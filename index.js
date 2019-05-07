@@ -10,6 +10,11 @@ var port = 3000;
 // 	response.send('users list');
 // });
 
+var users = [
+  		{id: 1, name: 'Tin'},
+  		{id: 2, name: 'Quang'}
+  	];
+
 app.set('views', './views');
 app.set('view engine', 'pug');
 
@@ -19,10 +24,18 @@ app.get('/', function (req, res) {
 
 app.get('/users', function (req, res) {
   res.render('users/index', {
-  	users: [
-  		{id: 1, name: 'Tin'},
-  		{id: 2, name: 'Quang'}
-  	]
+  	users: users
+  });
+});
+
+app.get('/users/search', function (req, res) {
+	var q = req.query.q;
+	var matchedUsers = users.filter(function(user) {
+  		return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+  	});
+
+  res.render('users/index', {
+  	users: matchedUsers
   });
 });
 
