@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var userRoute = require('./routes/user.route');
+var productRoute = require('./routes/product.route');
 
 var port = 3000;
 
@@ -18,6 +19,7 @@ app.get('/', function (req, res) {
 });
 
 app.use('/users', userRoute);
+app.use('/products', productRoute);
 
 app.listen(port, function() {
 	console.log('Express listen on port ' + port);

@@ -1,0 +1,16 @@
+h1 users list
+
+a(href="/products/create") create new
+
+form(action="/products/search", method="GET")
+	input(type="text", name="q")
+	button search
+
+ul
+	each pro in products
+		li
+			span= pro.name
+			span &nbsp;
+			span= pro.price
+			span &nbsp;
+			a(href='/products/' + pro.id) View
