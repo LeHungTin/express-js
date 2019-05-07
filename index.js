@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var port = 3000;
+var bodyParser = require('body-parser');
 
 // app.get('/', function(request, response) {
 // 	response.send('Hello World');
@@ -17,6 +18,9 @@ var users = [
 
 app.set('views', './views');
 app.set('view engine', 'pug');
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.get('/', function (req, res) {
   res.render('index');
@@ -37,6 +41,15 @@ app.get('/users/search', function (req, res) {
   res.render('users/index', {
   	users: matchedUsers
   });
+});
+
+app.get('/users/create', function (req, res) {
+  res.render('users/create');
+});
+
+app.post('/users/create', function (req, res) {
+ 	users.push(req.body);
+ 	res.redirect('/users');
 });
 
 app.listen(port, function() {
