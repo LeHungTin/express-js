@@ -3,6 +3,16 @@ var app = express();
 var port = 3000;
 var bodyParser = require('body-parser');
 
+var low = require('lowdb')
+var FileSync = require('lowdb/adapters/FileSync')
+var adapter = new FileSync('db.json')
+var db = low(adapter)
+
+// Set some defaults (required if your JSON file is empty)
+db.defaults({ users: [] })
+  .write()
+
+
 // app.get('/', function(request, response) {
 // 	response.send('Hello World');
 // });
@@ -10,11 +20,6 @@ var bodyParser = require('body-parser');
 // app.get('/users', function(request, response) {
 // 	response.send('users list');
 // });
-
-var users = [
-  		{id: 1, name: 'Tin'},
-  		{id: 2, name: 'Quang'}
-  	];
 
 app.set('views', './views');
 app.set('view engine', 'pug');
@@ -28,18 +33,18 @@ app.get('/', function (req, res) {
 
 app.get('/users', function (req, res) {
   res.render('users/index', {
-  	users: users
+  	users: db.get('users').value()
   });
 });
 
 app.get('/users/search', function (req, res) {
 	var q = req.query.q;
-	var matchedUsers = users.filter(function(user) {
+	var matchedUsers = db.get('users').filter(function(user) {
   		return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
   	});
 
   res.render('users/index', {
-  	users: matchedUsers
+  	users: matchedUsers.value()
   });
 });
 
@@ -48,7 +53,7 @@ app.get('/users/create', function (req, res) {
 });
 
 app.post('/users/create', function (req, res) {
- 	users.push(req.body);
+ 	db.get('users').push(req.body).write();
  	res.redirect('/users');
 });
 
