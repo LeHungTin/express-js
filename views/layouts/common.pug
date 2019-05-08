@@ -3,4 +3,15 @@ html
 		link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
 		link(rel="stylesheet", href="/css/style.css")
 	body
-		block content
+		nav.navbar.navbar-expand-lg.navbar-light.bg-light
+			a.navbar-brand(href='#') Coder.Tokyo
+			button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+				span.navbar-toggler-icon
+			#navbarSupportedContent.collapse.navbar-collapse
+				ul.navbar-nav.mr-auto
+					li.nav-item.active
+						a.nav-link(href='/') Home
+					li.nav-item
+						a.nav-link(href='/users') Users
+		.container
+			block content
