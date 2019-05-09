@@ -25,5 +25,4 @@ app.use('/products', productRoute);
 
 app.listen(port, function() {
 	console.log('Express listen on port ' + port);
-	console.log('Express listen on xin chao ahihi ' + port);
 });
