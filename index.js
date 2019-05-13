@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-console.log(process.env.SESSION_SECRETE);
-
 var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
