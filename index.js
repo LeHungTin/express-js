@@ -14,6 +14,8 @@ var authRoute = require('./routes/auth.route');
 var cartRoute = require('./routes/cart.route');
 var transferRoute = require('./routes/transfer.route');
 
+var apiProductRoute = require('./api/routes/product.route');
+
 var authMiddleware = require('./middlewares/auth.middleware');
 var sessionMiddleware = require('./middlewares/session.middleware');
 
@@ -29,6 +31,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use(cookieParser(process.env.SESSION_SECRETE));
 app.use(sessionMiddleware); // co tac dong den tat ca cac duong dan ma chung ta su dung
 app.use(csurf({ cookie: true })); // la 1 ham tra ve 1 middleware
+
+app.use('/api/products', apiProductRoute);
 
 app.use(express.static('public'));
 
